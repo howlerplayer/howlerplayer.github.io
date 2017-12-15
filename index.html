@@ -1,167 +1,53 @@
-<!DOCTYPE doctype html>
-<html lang="ru">
-
-  <head>
-    <meta charset="utf-8">
-    <title>
-      Главная страница
-    </title>
-    <meta content="" name="description">
-    <link href="styles.css" rel="stylesheet">
-    </link>
-  </meta>
-</meta>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="user-scalable=no">
+  <title>Howler.js Audio Player</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
-
 <body>
-  <div class="header-container">
-    <div class="header-player-container">
-      <section class="header-player">
-        <div class="previousHeader player-button" id="prevHeader">
-        </div>
-        <div class="playHeader player-button" id="playHeader">
-        </div>
-        <div class="pauseHeader player-button" id="pauseHeader">
-        </div>
-        <div class="nextHeader player-button" id="nextHeader">
-        </div>
-        <div class="duration-player-container">
-          <p class="artSong-header"><span class="artist" id="artist_top"></span><span class="song_top" id="song_top"></span>&nbsp</p>
-          <div class="duration-header">
-            <div class="duration-now" style="width:15%;"></div>
-          </div>
-        </div>
-        <div class="durationText-header">
-          <span class="">0:23</span> / <span class="">3:54</span>
-        </div>
-        <div class="volumeOff-header player-button">
-        </div>
-        <div class="volumeControl-header">
-          <div class="volumeControlLevel-header">
-          </div>
-        </div>
-      </section>
-    </div>
+  <!-- Top Info -->
+  <div id="title">
+    <span id="track"></span>
+    <div id="timer">0:00</div>
+    <div id="duration">0:00</div>
   </div>
-  <div class="container">
-    <main>
-      <section class="music">
-        <div class="one-song">
-          <div class="play" id="play1"></div>
-          <div class="pause" id="pause1"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Burito</span>- <span class="songName">Мегахит
-            </span></p>
-          <div class="musicTime">| 2:58
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play2"></div>
-          <div class="pause" id="pause2"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Артур Руденко</span> - <span class="songName">Падал Белый Снег
-            </span></p>
-          <div class="musicTime">| 6:34
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play3"></div>
-          <div class="pause" id="pause3"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Юрий Шатунов</span> - <span class="songName">Детство
-            </span></p>
-          <div class="musicTime">| 3:34
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play4"></div>
-          <div class="pause" id="pause4"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Centr feat. А-Студио</span> - <span class="songName">Далеко
-            </span></p>
-          <div class="musicTime">| 3:30
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play5"></div>
-          <div class="pause" id="pause5"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Детские Песни</span> - <span class="songName">Спокойной Ночи Малыши
-            </span></p>
-          <div class="musicTime">| 2:29
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play6"></div>
-          <div class="pause" id="pause6"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Дмитрий Василевский</span> - <span class="songName">Одинокий Мужичок за 50
-            </span></p>
-          <div class="musicTime">| 4:01
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play7"></div>
-          <div class="pause" id="pause7"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">3G</span> - <span class="songName">Звонки
-            </span></p>
-          <div class="musicTime">| 3:19
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play8"></div>
-          <div class="pause" id="pause8"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Гимны</span> - <span class="songName">Гимн РФ
-            </span></p>
-          <div class="musicTime">| 3:11
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play9"></div>
-          <div class="pause" id="pause9"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Олег Газманов</span> - <span class="songName">Два Орла
-            </span></p>
-          <div class="musicTime">| 3:29
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-        <div class="one-song">
-          <div class="play" id="play10"></div>
-          <div class="pause" id="pause10"></div>
-          <p class="artsong-player">
-            <span class="songAuthor">Yall feat. Gabriela Richardson</span> - <span class="songName">Hundred Miles
-            </span></p>
-          <div class="musicTime">| 2:55
-          </div>
-          <div class="musicDownload">
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <script src="js/howler.js"></script>
-  <script src="js/player.js"></script>
-  <script src="js/songs.js"></script>
-</body>
 
+  <!-- Controls -->
+  <div class="controlsOuter">
+    <div class="controlsInner">
+      <div id="loading"></div>
+      <div class="btn" id="playBtn"></div>
+      <div class="btn" id="pauseBtn"></div>
+      <div class="btn" id="prevBtn"></div>
+      <div class="btn" id="nextBtn"></div>
+    </div>
+    <div class="btn" id="playlistBtn"></div>
+    <div class="btn" id="volumeBtn"></div>
+  </div>
+
+  <!-- Progress -->
+  <div id="waveform"></div>
+  <div id="bar"></div>
+  <div id="progress"></div>
+
+  <!-- Playlist -->
+  <div id="playlist">
+    <div id="list"></div>
+  </div>
+
+  <!-- Volume -->
+  <div id="volume" class="fadeout">
+    <div id="barFull" class="bar"></div>
+    <div id="barEmpty" class="bar"></div>
+    <div id="sliderBtn"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/howler.core.js"></script>
+  <script src="js/siriwave.js"></script>
+  <script src="js/songs.js"></script>
+  <script src="js/player.js"></script>
+</body>
 </html>
