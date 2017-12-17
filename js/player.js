@@ -1,19 +1,18 @@
 // Кэширование элементов для ускорения загрузки
 // Это нужно
 // В конце список нужно будет проверить и убрать те элементы, которых нет в коде
-var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'playlistBtn', 'volumeBtn', 'progress', 'bar', 'wave', 'loading', 'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'];
+var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'progress', 'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'];
 elms.forEach(function(elm) {
   window[elm] = document.getElementById(elm);
 });
 
 // Создаём функцию проигрывания плейлиста
-
 var Player = function(playlist) {
   this.playlist = playlist;
   this.index = 0;
 
   // Выводим заголовок первого трека
-  track.innerHTML = '1. ' + playlist[0].title;
+  track.innerHTML = '1. ' + playlist[0].artist + ' - ' + playlist[0].title;
 
   // Отображение плейлиста на экране
   // Для каждого трека создаётся класс list-song
@@ -22,7 +21,7 @@ var Player = function(playlist) {
   playlist.forEach(function(song) {
     var div = document.createElement('div');
     div.className = 'list-song';
-    div.innerHTML = song.title;
+    div.innerHTML = song.artist + ' - ' + song.title + ' | ' + song.duration;
     div.onclick = function() {
       player.skipTo(playlist.indexOf(song));
     };
@@ -51,41 +50,24 @@ Player.prototype = {
         // Указываем где искать ссылку на трек
         src: [data.file],
         html5: true, // Включаем HTML5 
+        // Функция проигрывания трека
         onplay: function() {
           // Выводим продолжительность каждого трека.
           // Куда же мы его выводим, раз элемента duration нет?
           duration.innerHTML = self.formatTime(Math.round(sound.duration()));
-
-          // Анимация проигрывания. Не нужно. Потом удалить.
-          requestAnimationFrame(self.step.bind(self));
-
-          // Запустите анимацию волны, если мы уже загрузили. 
-          // Не нужно. Потом удалить.
-          wave.container.style.display = 'block';
-          bar.style.display = 'none';
+          // Отображаем проигрывание трека в шкале прогресса
+        requestAnimationFrame(self.step.bind(self));
+          // Отображаем кнопку Pause
           pauseBtn.style.display = 'block';
         },
         onload: function() {
-          // Начало анимации волны.
-          wave.container.style.display = 'block';
-          bar.style.display = 'none';
-          loading.style.display = 'none';
         },
         onend: function() {
-          // Конец анимации волны.
-          wave.container.style.display = 'none';
-          bar.style.display = 'block';
           self.skip('right');
         },
         onpause: function() {
-          // Конец анимации волны.
-          wave.container.style.display = 'none';
-          bar.style.display = 'block';
         },
         onstop: function() {
-          // Конец анимации волны.
-          wave.container.style.display = 'none';
-          bar.style.display = 'block';
         }
       });
     }
@@ -94,17 +76,16 @@ Player.prototype = {
     sound.play();
 
     // Обновляем номер и название трека в хедере
-    // Добавить артиста
-    track.innerHTML = (index + 1) + '. ' + data.title;
+    
+    track.innerHTML = (index + 1) + '. ' + data.artist + ' - ' + data.title;
 
     // Отображаем кнопку Pause
     if (sound.state() === 'loaded') {
       playBtn.style.display = 'none';
       pauseBtn.style.display = 'block';
-    } else {
-      loading.style.display = 'block';
+    } else {      
       playBtn.style.display = 'none';
-      pauseBtn.style.display = 'none';
+      pauseBtn.style.display = 'block';
     }
 
     // Сохраняем индекс проигрываемого трека 
@@ -165,7 +146,7 @@ Player.prototype = {
     }
 
     // Сбрасываем прогресс
-    progress.style.width = '0%';
+    progress.style.width = '15%';
 
     // Переходим к следующему треку
     self.play(index);
@@ -175,16 +156,11 @@ Player.prototype = {
    * Устанавливаем громкость и обновляем дисплей слайдера громкости.
    * @param  {Number} val Volume between 0 and 1.
    */
+  
   volume: function(val) {
     var self = this;
-
     // Применяем громкость ко всем трекам
     Howler.volume(val);
-
-    // Обновляем отображение громкости на панели звука
-    var barWidth = (val * 90) / 100;
-    barFull.style.width = (barWidth * 100) + '%';
-    sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px';
   },
 
   /**
@@ -224,34 +200,6 @@ Player.prototype = {
   },
 
   /**
-   * Показать/скрыть список воспроизведения
-   Надо будет сделать постоянно отображаемым
-   */
-  togglePlaylist: function() {
-    var self = this;
-    var display = (playlist.style.display === 'block') ? 'none' : 'block';
-
-    setTimeout(function() {
-      playlist.style.display = display;
-    }, (display === 'block') ? 0 : 500);
-    playlist.className = (display === 'block') ? 'fadein' : 'fadeout';
-  },
-
-  /**
-   * Показать/скрыть шкалу звука
-   Надо будет сделать постоянно отображаемой
-   */
-  toggleVolume: function() {
-    var self = this;
-    var display = (volume.style.display === 'block') ? 'none' : 'block';
-
-    setTimeout(function() {
-      volume.style.display = display;
-    }, (display === 'block') ? 0 : 500);
-    volume.className = (display === 'block') ? 'fadein' : 'fadeout';
-  },
-
-  /**
    * Перевод времени воспроизведения от секунд к минутам и секундам
    * @param  {Number} secs Seconds to format.
    * @return {String}      Formatted time.
@@ -282,92 +230,27 @@ prevBtn.addEventListener('click', function() {
 nextBtn.addEventListener('click', function() {
   player.skip('next');
 });
-// Волна. Надо будет удалить
-waveform.addEventListener('click', function(event) {
-  player.seek(event.clientX / window.innerWidth);
-});
-// Кнопка Показать плейлист. Надо будет удалить
-playlistBtn.addEventListener('click', function() {
-  player.togglePlaylist();
-});
-// Кнопка Показать плейлист. Надо будет удалить
-playlist.addEventListener('click', function() {
-  player.togglePlaylist();
-});
-// Кнопка Показать шкалу звука. Надо будет удалить
-volumeBtn.addEventListener('click', function() {
-  player.toggleVolume();
-});
-// Кнопка Показать шкалу звука. Надо будет удалить
-volume.addEventListener('click', function() {
-  player.toggleVolume();
+
+// Регулируем громкость
+var soundVolume = document.getElementById("soundVolume");
+soundVolume.addEventListener('input', function() { 
+  player.volume(soundVolume.value);
 });
 
-// Добавляем слушателей событий.
-barEmpty.addEventListener('click', function(event) {
-  var per = event.layerX / parseFloat(barEmpty.scrollWidth);
-  player.volume(per);
-});
-sliderBtn.addEventListener('mousedown', function() {
-  window.sliderDown = true;
-});
-sliderBtn.addEventListener('touchstart', function() {
-  window.sliderDown = true;
-});
-volume.addEventListener('mouseup', function() {
-  window.sliderDown = false;
-});
-volume.addEventListener('touchend', function() {
-  window.sliderDown = false;
-});
+// Включаем/выключаем звук кнопкой Mute
 
-var move = function(event) {
-  if (window.sliderDown) {
-    var x = event.clientX || event.touches[0].clientX;
-    var startX = window.innerWidth * 0.05;
-    var layerX = x - startX;
-    var per = Math.min(1, Math.max(0, layerX / parseFloat(barEmpty.scrollWidth)));
-    player.volume(per);
+function muter() {
+  if (soundVolume.value == 0) {
+    player.volume(restoreValue);
+    soundVolume.value = restoreValue;
+    muteButton.style.opacity = 1;
+  } else {
+    player.volume(0);
+    restoreValue = soundVolume.value;
+    soundVolume.value = 0;
+    muteButton.style.opacity = 0.4;
   }
-};
+}
 
-volume.addEventListener('mousemove', move);
-volume.addEventListener('touchmove', move);
-
-// Setup the "waveform" animation.
-var wave = new SiriWave({
-    container: waveform,
-    width: window.innerWidth,
-    height: window.innerHeight * 0.3,
-    cover: true,
-    speed: 0.03,
-    amplitude: 0.7,
-    frequency: 2
-});
-wave.start();
-
-// Update the height of the wave animation.
-// These are basically some hacks to get SiriWave.js to do what we want.
-var resize = function() {
-  var height = window.innerHeight * 0.3;
-  var width = window.innerWidth;
-  wave.height = height;
-  wave.height_2 = height / 2;
-  wave.MAX = wave.height_2 - 4;
-  wave.width = width;
-  wave.width_2 = width / 2;
-  wave.width_4 = width / 4;
-  wave.canvas.height = height;
-  wave.canvas.width = width;
-  wave.container.style.margin = -(height / 2) + 'px auto';
-
-  // Update the position of the slider.
-  var sound = player.playlist[player.index].howl;
-  if (sound) {
-    var vol = sound.volume();
-    var barWidth = (vol * 0.9);
-    sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px';
-  }
-};
-window.addEventListener('resize', resize);
-resize();
+var muteButton = document.getElementById("muteButton");
+muteButton.addEventListener("click", muter);

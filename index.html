@@ -8,45 +8,47 @@
 </head>
 <body>
   <!-- Top Info -->
-  <div id="title">
-    <span id="track"></span>
-    <div id="timer">0:00</div>
-    <div id="duration">0:00</div>
-  </div>
-
-  <!-- Controls -->
-  <div class="controlsOuter">
-    <div class="controlsInner">
-      <div id="loading"></div>
-      <div class="btn" id="playBtn"></div>
-      <div class="btn" id="pauseBtn"></div>
-      <div class="btn" id="prevBtn"></div>
-      <div class="btn" id="nextBtn"></div>
+  <div class="header-container">
+    <div id="title" class="artSong-header">
+      <span id="track"></span>
     </div>
-    <div class="btn" id="playlistBtn"></div>
-    <div class="btn" id="volumeBtn"></div>
+    
+    <div class="header-player-container"> 
+      <!-- Controls -->
+      <div class="header-player">
+        <div class="player-button previousHeader" id="prevBtn"></div>
+        <div class="player-button playHeader" id="playBtn"></div>
+        <div class="player-button pauseHeader" id="pauseBtn"></div>          
+        <div class="player-button nextHeader" id="nextBtn"></div> 
+      </div>
+      
+      <!-- Progress -->
+      <div class="duration-player">
+        <div id="progress"></div>
+      </div> 
+      
+      <!-- Timer -->
+      
+      <div class="duration-timer">
+        <div id="timer" class="timer-header">0:00</div>      
+        <div id="duration">2:58</div>
+      </div> 
+      
+      <!-- Volume -->
+      <div class="volume-header">
+        <div id="muteButton" class="volumeOff-header player-button"></div>
+        <input id="soundVolume" type="range" min="0" max="1" step="0.01">
+      </div>
+    </div>     
   </div>
-
-  <!-- Progress -->
-  <div id="waveform"></div>
-  <div id="bar"></div>
-  <div id="progress"></div>
-
   <!-- Playlist -->
-  <div id="playlist">
+  <div id="playlist" class="container">
     <div id="list"></div>
   </div>
-
-  <!-- Volume -->
-  <div id="volume" class="fadeout">
-    <div id="barFull" class="bar"></div>
-    <div id="barEmpty" class="bar"></div>
-    <div id="sliderBtn"></div>
-  </div>
-
+  
   <!-- Scripts -->
   <script src="js/howler.core.js"></script>
-  <script src="js/siriwave.js"></script>
+  
   <script src="js/songs.js"></script>
   <script src="js/player.js"></script>
 </body>
