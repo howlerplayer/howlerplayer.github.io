@@ -1,7 +1,7 @@
 // Кэширование элементов для ускорения загрузки
 // Это нужно
 // В конце список нужно будет проверить и убрать те элементы, которых нет в коде
-var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'progress', 'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'];
+var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'progress', 'playlist', 'list', 'volume'];
 elms.forEach(function(elm) {
   window[elm] = document.getElementById(elm);
 });
@@ -16,15 +16,50 @@ var Player = function(playlist) {
 
   // Отображение плейлиста на экране
   // Для каждого трека создаётся класс list-song
-  // Выводится название трека - song.title
-  // При клике по названию трека запускается его проигрывание 
+  // Выводится название трека - song.artist + song.title
+  // При клике по названию трека находим его в плейлисте
   playlist.forEach(function(song) {
     var div = document.createElement('div');
     div.className = 'list-song';
     div.innerHTML = song.artist + ' - ' + song.title + ' | ' + song.duration;
-    div.onclick = function() {
-      player.skipTo(playlist.indexOf(song));
-    };
+ // Добавляем каждому диву ссылку на скачивание трека   
+    var aDownload = document.createElement('a');
+    aDownload.className = 'download';
+    div.appendChild(aDownload);
+    aDownload.href=song.file;
+    // Атрибут download поддерживают не все браузеры
+    aDownload.download = 'file.mp3';
+    // Если трек не скачивается по клику, то откроется в новой вкладке
+    aDownload.target = '_blank';
+    // Предотвращаем дальнейшее распространение событий при клике на кнопку "Download"
+    aDownload.addEventListener("click", function(e) {  
+      e.stopPropagation();
+    });
+    
+    // Отключаем воспроизведение трека, если у него есть класс list-song1
+    // И проигрываем, если этого класса нет
+    // Теперь ещё нужно научить плеер сохранять позицию проигрывания
+    // Создаём переменную в которой сохраняем время проигрывания трека
+    var timeSound;
+    div.onclick = function() {      
+      if(div.classList.contains("list-song1")) {
+        player.pause();
+        // Это наша песня, которая сейчас проигрывается
+        var soundPlaylist = playlist[playlist.indexOf(song)].howl;
+        // Устанавливаем новую позицию воспроизведения
+        var seekPlaylist = soundPlaylist.seek() || 0;
+        // Переводим значение в доли единицы разделив время уже проигранной части трека на общее время трека
+        timeSound = seekPlaylist / soundPlaylist.duration();
+        div.classList.remove("list-song1");
+        div.classList.add("list-song");
+      } else {  
+        player.skipTo(playlist.indexOf(song));
+        // Устанавливаем новую позицию воспроизведения
+        player.seek(timeSound);
+        // И новое значение полосы прогресса
+        progress.style.width = ((timeSound * 100) || 0) + '%';
+      }     
+    };    
     list.appendChild(div);
   });
 };
@@ -38,8 +73,8 @@ Player.prototype = {
     var sound;
 
     index = typeof index === 'number' ? index : self.index;
-    var data = self.playlist[index];
-
+    var data = self.playlist[index]; 
+          
     // Если мы уже загрузили трек, проигрываем его
     // Если нет, загружаем новый трек
     if (data.howl) {
@@ -56,7 +91,7 @@ Player.prototype = {
           // Куда же мы его выводим, раз элемента duration нет?
           duration.innerHTML = self.formatTime(Math.round(sound.duration()));
           // Отображаем проигрывание трека в шкале прогресса
-        requestAnimationFrame(self.step.bind(self));
+          requestAnimationFrame(self.step.bind(self));
           // Отображаем кнопку Pause
           pauseBtn.style.display = 'block';
         },
@@ -76,7 +111,7 @@ Player.prototype = {
     sound.play();
 
     // Обновляем номер и название трека в хедере
-    
+
     track.innerHTML = (index + 1) + '. ' + data.artist + ' - ' + data.title;
 
     // Отображаем кнопку Pause
@@ -87,9 +122,57 @@ Player.prototype = {
       playBtn.style.display = 'none';
       pauseBtn.style.display = 'block';
     }
-
+    
+    // index - номер песни, которая сейчас проигрывается
+    // По нему стилизуем кнопку трека, который проигрывается, в плейлисте 
+    
+    var songLists = document.querySelectorAll("#list div");
+    for(var i = 0; i < songLists.length; i++) {
+      if(songLists[i].classList.contains("list-song1")) {
+        songLists[i].classList.remove("list-song1");
+        songLists[i].classList.add("list-song");
+      }
+      if(i == index) {
+        songLists[i].classList.remove("list-song");
+        songLists[i].classList.add("list-song1");
+      }
+    }
+    
+    // Стилизуем кнопку трека при клике на кнопку Pause
+    pauseBtn.addEventListener("click", function() {
+      for(var i = 0; i < songLists.length; i++) {
+        if(songLists[i].classList.contains("list-song1")) {
+          songLists[i].classList.remove("list-song1");
+          songLists[i].classList.add("list-song");
+        }
+      }
+    });  
+            
     // Сохраняем индекс проигрываемого трека 
     self.index = index;
+    
+    // Перемещение полосы прогресса по шкале, если перемещать её мышкой
+    // Перемотка трека
+    // здесь возможна ошибка в консоли, если трек ставить на паузу, потом запускать и перемещать ползунок
+    // описание https://github.com/goldfire/howler.js/issues/718
+    // автор утверждает что 3 дня назад пофиксил её
+    // на самом деле он просто запретил перемещение ползунка после паузы, что не есть хорошо
+    // Пока ошибку оставила из соображений: лучше ошибка в консоли, чем неработающий функционал
+    var progressBar = document.querySelector(".duration-player");
+    progressBar.addEventListener("click", function(e) {
+      
+      // Проверяем, что речь идёт об одном и том же треке
+      if (self.index == index && sound.playing())  {
+        progressValue = e.offsetX;  
+        progressValueWidth = progressValue/(progressBar.offsetWidth);
+        // Проверяем, что не вышли за границы трека
+        if(progressValueWidth > 0 && progressValueWidth < 1) {
+          
+          progress.style.width = (((progressValueWidth) * 100) || 0) + '%';
+            player.seek(progressValueWidth);  
+        }        
+      }
+    });
   },
 
   /**
@@ -100,13 +183,14 @@ Player.prototype = {
 
     // Получаем трек для проигрывания
     var sound = self.playlist[self.index].howl;
-
+    
     // Делаем паузу
     sound.pause();
 
     // Отображаем кнопку Play
     playBtn.style.display = 'block';
-    pauseBtn.style.display = 'none';
+    pauseBtn.style.display = 'none';   
+       
   },
 
   /**
@@ -150,13 +234,29 @@ Player.prototype = {
 
     // Переходим к следующему треку
     self.play(index);
+    
+    // index - номер песни, которая сейчас проигрывается
+    // По нему стилизуем кнопку в плейлисте при переходе к следующему/предыдущему треку
+    
+    var songLists = document.querySelectorAll("#list div");
+    for(var i = 0; i < songLists.length; i++) {
+      if(songLists[i].classList.contains("list-song1")) {
+        songLists[i].classList.remove("list-song1");
+        songLists[i].classList.add("list-song");
+      }
+      if(i == index) {
+        songLists[i].classList.remove("list-song");
+        songLists[i].classList.add("list-song1");
+      }
+    }
+
   },
 
   /**
    * Устанавливаем громкость и обновляем дисплей слайдера громкости.
    * @param  {Number} val Volume between 0 and 1.
    */
-  
+
   volume: function(val) {
     var self = this;
     // Применяем громкость ко всем трекам
@@ -187,7 +287,6 @@ Player.prototype = {
 
     // Get the Howl we want to manipulate.
     var sound = self.playlist[self.index].howl;
-
     // Determine our current seek position.
     var seek = sound.seek() || 0;
     timer.innerHTML = self.formatTime(Math.round(seek));
@@ -196,7 +295,7 @@ Player.prototype = {
     // If the sound is still playing, continue stepping.
     if (sound.playing()) {
       requestAnimationFrame(self.step.bind(self));
-    }
+    }    
   },
 
   /**
@@ -253,4 +352,4 @@ function muter() {
 }
 
 var muteButton = document.getElementById("muteButton");
-muteButton.addEventListener("click", muter);
+muteButton.addEventListener("click", muter); 

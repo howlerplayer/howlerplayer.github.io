@@ -72,6 +72,7 @@ body {
 .player-button:hover {
   opacity: 1;
 }
+
 .playHeader {
   background: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M-2-2h24v24H-2z'/%3E%3Cpath d='M8 14.5l6-4.5-6-4.5v9zM10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' fill='%23D43855'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
   background-size: contain;
@@ -105,10 +106,10 @@ body {
 }
 
 /* Progress */
-
 .duration-player {
   position: relative;
-  height: 15px;
+  box-sizing: border-box;
+  height: 19px;
   margin-right: 10px;
   min-width: 300px;  
   background: white;
@@ -129,10 +130,12 @@ body {
 }
 
 /* Timer */
-
 .duration-timer {
   display: flex;
   font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .timer-header:after {
@@ -142,7 +145,6 @@ body {
 }
 
 /* Volume */
-
 .volume-header {
   display: flex;
   align-items: center;
@@ -174,7 +176,8 @@ input[type='range'] {
   font-size: 16px;
 }
 
-.list-song {
+.list-song,
+.list-song1 {
   display: flex;
   position: relative;
   align-items: center;
@@ -196,19 +199,30 @@ input[type='range'] {
   cursor: pointer;  
 }
 
-.list-song:after {
+.list-song1:before {
   content: '';
   width: 40px;
   height: 40px;
-  position: absolute;
-  right: 10px;
-  top: 18px;  
-  background: url("data:image/svg+xml,%3Csvg width='29' height='26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M2 1h24v24H2z'/%3E%3Cpath d='M18 14h-3V4h-2v10h-3l4 4 4-4zM6 20v2h16v-2H6z' fill='%23000'/%3E%3Cpath stroke='%23242424' d='M.5.5h28v25H.5z'/%3E%3C/g%3E%3C/svg%3E")no-repeat;
+  margin-right: 25px;
+  background: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M-2-2h24v24H-2z'/%3E%3Cpath d='M7 14h2V6H7v8zm3-14C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V6h-2v8z' fill='%23000'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
   background-size: contain;
   background-position: 50% 50%;
+  cursor: pointer;  
 }
 
 .list-song:hover {
   background-color: rgba(0, 0, 0, 0.04);
   cursor: pointer;
+}
+
+.download {
+  width: 40px;
+  height: 40px;
+  border: 10px solid transparent;
+  position: absolute;
+  right: 0;
+  top: 8px;  
+  background: url("data:image/svg+xml,%3Csvg width='29' height='26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M2 1h24v24H2z'/%3E%3Cpath d='M18 14h-3V4h-2v10h-3l4 4 4-4zM6 20v2h16v-2H6z' fill='%23000'/%3E%3Cpath stroke='%23242424' d='M.5.5h28v25H.5z'/%3E%3C/g%3E%3C/svg%3E")no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
 }

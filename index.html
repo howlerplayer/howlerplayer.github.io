@@ -1,19 +1,19 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="user-scalable=no">
+  <meta charset="UTF-8">
   <title>Howler.js Audio Player</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-  <!-- Top Info -->
+<body>  
   <div class="header-container">
+   
+    <!-- Top Info -->
     <div id="title" class="artSong-header">
       <span id="track"></span>
-    </div>
-    
-    <div class="header-player-container"> 
+    </div>    
+    <div class="header-player-container">
+      
       <!-- Controls -->
       <div class="header-player">
         <div class="player-button previousHeader" id="prevBtn"></div>
@@ -27,8 +27,7 @@
         <div id="progress"></div>
       </div> 
       
-      <!-- Timer -->
-      
+      <!-- Timer -->      
       <div class="duration-timer">
         <div id="timer" class="timer-header">0:00</div>      
         <div id="duration">2:58</div>
@@ -41,14 +40,14 @@
       </div>
     </div>     
   </div>
+  
   <!-- Playlist -->
   <div id="playlist" class="container">
     <div id="list"></div>
   </div>
   
   <!-- Scripts -->
-  <script src="js/howler.core.js"></script>
-  
+  <script src="js/howler.core.js"></script>  
   <script src="js/songs.js"></script>
   <script src="js/player.js"></script>
 </body>
