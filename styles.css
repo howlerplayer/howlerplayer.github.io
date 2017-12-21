@@ -109,12 +109,11 @@ body {
 .duration-player {
   position: relative;
   box-sizing: border-box;
-  height: 19px;
+  height: 18px;
   margin-right: 10px;
   min-width: 300px;  
   background: white;
   border: 2px solid #979797;
-  border-radius 10px;
   box-shadow: 0 0 0 4px RGBA(113, 188, 125, 0.7);
   cursor:pointer;
 }
