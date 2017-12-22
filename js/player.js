@@ -88,7 +88,7 @@ Player.prototype = {
           // Отображаем проигрывание трека в шкале прогресса
           requestAnimationFrame(self.step.bind(self));
           // Отображаем кнопку Pause
-          pauseBtn.style.display = 'block';
+          pauseBtn.style.display = 'flex';
         },
         onload: function() {
         },
@@ -111,10 +111,10 @@ Player.prototype = {
     // Отображаем кнопку Pause
     if (sound.state() === 'loaded') {
       playBtn.style.display = 'none';
-      pauseBtn.style.display = 'block';
+      pauseBtn.style.display = 'flex';
     } else {      
       playBtn.style.display = 'none';
-      pauseBtn.style.display = 'block';
+      pauseBtn.style.display = 'flex';
     }
     
     // Для всех треков в плейлисте проверяем наличие класса list-song1 и удаляем его
@@ -181,7 +181,7 @@ Player.prototype = {
     sound.pause();
 
     // Отображаем кнопку Play
-    playBtn.style.display = 'block';
+    playBtn.style.display = 'flex';
     pauseBtn.style.display = 'none';   
        
   },

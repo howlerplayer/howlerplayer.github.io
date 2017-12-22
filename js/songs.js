@@ -1,73 +1,87 @@
 function CreatePlayer() {
   var playListSongs = [
     {
-      artist: 'Burito',
-      title: 'Мегахит',
-      file: 'http://tronis.ru/music/305.mp3',
-      duration: '2:58',
+      artist: 'Сваты',
+      title: 'Всё повторится',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at441711088.mp3',
+      duration: '2:07',
       howl: null
     },
     {
-      artist: 'Артур Руденко',
-      title: 'Падал Белый Снег',
-      file: 'http://tronis.ru/music/376.mp3',
-      duration: '3:18',
+      artist: 'Сваты',
+      title: 'В городе весна',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at748277702.mp3',
+      duration: '1:10',
       howl: null
     },
     {
-      artist: 'Юрий Шатунов',
-      title: 'Детство',
-      file: 'http://tronis.ru/music/429.mp3',
-      duration: '3:34',
-      howl: null
-    },
-    {
-      artist: 'Centr feat. А-Студио',
-      title: 'Далеко',
-      file: 'http://tronis.ru/music/450.mp3',
-      duration: '3:30',
-      howl: null
-    },
-    {
-      artist: 'Детские Песни',
-      title: 'Спокойной Ночи Малыши',
-      file: 'http://tronis.ru/music/473.mp3',
+      artist: 'Сваты',
+      title: 'Сны',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at442253544.mp3',
       duration: '2:29',
       howl: null
     },
     {
-      artist: 'Дмитрий Василевский',
-      title: 'Одинокий Мужичок за 50',
-      file: 'http://tronis.ru/music/516.mp3',
-      duration: '4:01',
+      artist: 'Сваты',
+      title: 'Радостная грусть',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at200976975.mp3',
+      duration: '3:28',
       howl: null
     },
     {
-      artist: '3G',
-      title: 'Звонки',
-      file: 'http://tronis.ru/music/561.mp3',
-      duration: '3:19',
+      artist: 'Сваты',
+      title: 'Прохлады.net',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at857130056.mp3',
+      duration: '1:49',
       howl: null
     },
     {
-      artist: 'Гимны',
-      title: 'Гимн РФ',
-      file: 'http://tronis.ru/music/592.mp3',
-      duration: '3:11',
+      artist: 'Сваты',
+      title: 'Где же ты был',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at707227761.mp3',
+      duration: '2:10',
       howl: null
     },
     {
-      artist: 'Олег Газманов',
-      title: 'Два Орла',
-      file: 'http://tronis.ru/music/594.mp3',
-      duration: '3:29',
+      artist: 'Сваты',
+      title: 'Жара',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at687895098.mp3',
+      duration: '1:27',
       howl: null
     },
     {
-      artist: 'Yall feat. Gabriela Richardson',
-      title: 'Hundred Miles',
-      file: 'http://tronis.ru/music/601.mp3',
-      duration: '2:55',
+      artist: 'Сваты',
+      title: 'Клён',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at810812371.mp3',
+      duration: '3:01',
+      howl: null
+    },
+    {
+      artist: 'Сваты',
+      title: 'Занавесочки',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at520849082.mp3',
+      duration: '2:40',
+      howl: null
+    },
+    {
+      artist: 'Сваты',
+      title: 'Белый фитилёк',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at889458466.mp3',
+      duration: '4:08',
+      howl: null
+    },
+    {
+      artist: 'Сваты',
+      title: 'Вальс',
+      file: 'http://static.tunnel.ru/media/audio/2016-06/post_comment/792773//at206470031.mp3',
+      duration: '2:22',
+      howl: null
+    },
+    {
+      artist: 'Сваты',
+      title: 'Гитара',
+      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at452194965.mp3',
+      duration: '3:25',
       howl: null
     }
   ]
