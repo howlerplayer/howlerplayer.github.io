@@ -1,1 +1,1 @@
-Чтобы открыть плеер, перейдите по ссылке: https://howlerplayer.github.io/
+Чтобы открыть плеер, пройдите по ссылке: https://howlerplayer.github.io/
