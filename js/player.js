@@ -133,7 +133,7 @@ Player.prototype = {
       }
     }
     
-    // Стилизуем кнопку трека при клике на кнопку Pause
+    // Стилизуем кнопку трека при клике на кнопку Pause плеера
     pauseBtn.addEventListener("click", function() {
       for(var i = 0; i < songLists.length; i++) {
         if(songLists[i].classList.contains("list-song1")) {
@@ -156,10 +156,10 @@ Player.prototype = {
     progressBar.addEventListener("click", function(e) {
       
       // Проверяем, что речь идёт об одном и том же треке
-      if (self.index == index && sound.playing())  {
+      if (self.index == index)  {
         progressValue = e.offsetX;  
         progressValueWidth = progressValue/(progressBar.offsetWidth);
-        // Проверяем, что не вышли за границы трека
+        // Проверяем, что не вышли за границы времени трека
         if(progressValueWidth > 0 && progressValueWidth < 1) {        
           progress.style.width = (((progressValueWidth) * 100) || 0) + '%';
             player.seek(progressValueWidth);  
@@ -283,7 +283,7 @@ Player.prototype = {
     // Определяем текущую позицию проигрывания
     var seek = sound.seek() || 0;
     
-    Отображаем время проигрывания в таймере и на шкале прогресса
+    // Отображаем время проигрывания в таймере и на шкале прогресса
     timer.innerHTML = self.formatTime(Math.round(seek));
     progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%';
 
