@@ -1,6 +1,4 @@
 // Кэширование элементов для ускорения загрузки
-// Это нужно
-// В конце список нужно будет проверить и убрать те элементы, которых нет в коде
 var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'progress', 'playlist', 'list', 'volume'];
 elms.forEach(function(elm) {
   window[elm] = document.getElementById(elm);
@@ -14,13 +12,12 @@ var Player = function(playlist) {
   // Выводим заголовок первого трека
   track.innerHTML = '1. ' + playlist[0].artist + ' - ' + playlist[0].title;
 
-  // Отображение плейлиста на экране
-  // Для каждого трека создаётся класс list-song
-  // Выводится название трека - song.artist + song.title
-  // При клике по названию трека находим его в плейлисте
+  // Отображение плейлиста на экране  
   playlist.forEach(function(song) {
     var div = document.createElement('div');
+    // Для каждого трека создаём див с классом list-song
     div.className = 'list-song';
+    // Выводим название трека - song.artist + song.title и т.д
     div.innerHTML = song.artist + ' - ' + song.title + ' | ' + song.duration;
  // Добавляем каждому диву ссылку на скачивание трека   
     var aDownload = document.createElement('a');
@@ -28,9 +25,7 @@ var Player = function(playlist) {
     div.appendChild(aDownload);
     aDownload.href=song.file;
     // Атрибут download поддерживают не все браузеры
-    aDownload.download = 'file.mp3';
-    // Если трек не скачивается по клику, то откроется в новой вкладке
-    aDownload.target = '_blank';
+    aDownload.download = 'file.mp3';    
     // Предотвращаем дальнейшее распространение событий при клике на кнопку "Download"
     aDownload.addEventListener("click", function(e) {  
       e.stopPropagation();
@@ -38,7 +33,7 @@ var Player = function(playlist) {
     
     // Отключаем воспроизведение трека, если у него есть класс list-song1
     // И проигрываем, если этого класса нет
-    // Теперь ещё нужно научить плеер сохранять позицию проигрывания
+    // Научим плеер сохранять позицию проигрывания
     // Создаём переменную в которой сохраняем время проигрывания трека
     var timeSound;
     div.onclick = function() {      
@@ -53,6 +48,7 @@ var Player = function(playlist) {
         div.classList.remove("list-song1");
         div.classList.add("list-song");
       } else {  
+        // Находим трек в плейлисте
         player.skipTo(playlist.indexOf(song));
         // Устанавливаем новую позицию воспроизведения
         player.seek(timeSound);
@@ -87,8 +83,7 @@ Player.prototype = {
         html5: true, // Включаем HTML5 
         // Функция проигрывания трека
         onplay: function() {
-          // Выводим продолжительность каждого трека.
-          // Куда же мы его выводим, раз элемента duration нет?
+          // Выводим продолжительность каждого трека
           duration.innerHTML = self.formatTime(Math.round(sound.duration()));
           // Отображаем проигрывание трека в шкале прогресса
           requestAnimationFrame(self.step.bind(self));
@@ -111,7 +106,6 @@ Player.prototype = {
     sound.play();
 
     // Обновляем номер и название трека в хедере
-
     track.innerHTML = (index + 1) + '. ' + data.artist + ' - ' + data.title;
 
     // Отображаем кнопку Pause
@@ -123,15 +117,16 @@ Player.prototype = {
       pauseBtn.style.display = 'block';
     }
     
-    // index - номер песни, которая сейчас проигрывается
-    // По нему стилизуем кнопку трека, который проигрывается, в плейлисте 
-    
+    // Для всех треков в плейлисте проверяем наличие класса list-song1 и удаляем его
+    // list-song1 это кнопка Пауза у трека в плейлисте
     var songLists = document.querySelectorAll("#list div");
     for(var i = 0; i < songLists.length; i++) {
       if(songLists[i].classList.contains("list-song1")) {
         songLists[i].classList.remove("list-song1");
         songLists[i].classList.add("list-song");
       }
+      // index - индекс трека который сейчас проигрывается
+      // По нему стилизуем кнопку трека, который проигрывается, в плейлисте добавляя ей класс list-song1
       if(i == index) {
         songLists[i].classList.remove("list-song");
         songLists[i].classList.add("list-song1");
@@ -151,12 +146,11 @@ Player.prototype = {
     // Сохраняем индекс проигрываемого трека 
     self.index = index;
     
-    // Перемещение полосы прогресса по шкале, если перемещать её мышкой
-    // Перемотка трека
-    // здесь возможна ошибка в консоли, если трек ставить на паузу, потом запускать и перемещать ползунок
-    // описание https://github.com/goldfire/howler.js/issues/718
-    // автор утверждает что 3 дня назад пофиксил её
-    // на самом деле он просто запретил перемещение ползунка после паузы, что не есть хорошо
+    // Перемещение полосы прогресса по шкале, если перемещать её мышкой и перемотка трека
+    // Здесь будет ошибка в консоли, если трек ставить на паузу, потом запускать и перемещать ползунок
+    // Описание ошибка по ссылке https://github.com/goldfire/howler.js/issues/718
+    // Автор утверждает что пофиксил её 3 дня назад 
+    // На самом деле он просто запретил перемещение ползунка после паузы, что не есть хорошо
     // Пока ошибку оставила из соображений: лучше ошибка в консоли, чем неработающий функционал
     var progressBar = document.querySelector(".duration-player");
     progressBar.addEventListener("click", function(e) {
@@ -166,8 +160,7 @@ Player.prototype = {
         progressValue = e.offsetX;  
         progressValueWidth = progressValue/(progressBar.offsetWidth);
         // Проверяем, что не вышли за границы трека
-        if(progressValueWidth > 0 && progressValueWidth < 1) {
-          
+        if(progressValueWidth > 0 && progressValueWidth < 1) {        
           progress.style.width = (((progressValueWidth) * 100) || 0) + '%';
             player.seek(progressValueWidth);  
         }        
@@ -213,7 +206,7 @@ Player.prototype = {
         index = 0;
       }
     }
-
+    
     self.skipTo(index);
   },
 
@@ -237,7 +230,7 @@ Player.prototype = {
     
     // index - номер песни, которая сейчас проигрывается
     // По нему стилизуем кнопку в плейлисте при переходе к следующему/предыдущему треку
-    
+    // Этот фрагмент кода уже был выше, нужно было бы его в отдельную функцию вывести
     var songLists = document.querySelectorAll("#list div");
     for(var i = 0; i < songLists.length; i++) {
       if(songLists[i].classList.contains("list-song1")) {
@@ -253,7 +246,7 @@ Player.prototype = {
   },
 
   /**
-   * Устанавливаем громкость и обновляем дисплей слайдера громкости.
+   * Устанавливаем громкость.
    * @param  {Number} val Volume between 0 and 1.
    */
 
@@ -280,15 +273,17 @@ Player.prototype = {
   },
 
   /**
-   * The step called within requestAnimationFrame to update the playback position.
+   * Обновление позиции воспроизведения
    */
   step: function() {
     var self = this;
 
-    // Get the Howl we want to manipulate.
+    // Получаем трек, который сейчас проигрывается
     var sound = self.playlist[self.index].howl;
-    // Determine our current seek position.
+    // Определяем текущую позицию проигрывания
     var seek = sound.seek() || 0;
+    
+    Отображаем время проигрывания в таймере и на шкале прогресса
     timer.innerHTML = self.formatTime(Math.round(seek));
     progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%';
 
@@ -337,7 +332,7 @@ soundVolume.addEventListener('input', function() {
 });
 
 // Включаем/выключаем звук кнопкой Mute
-
+// Здесь можно было сделать проще, у плеера есть функция mute()
 function muter() {
   if (soundVolume.value == 0) {
     player.volume(restoreValue);
