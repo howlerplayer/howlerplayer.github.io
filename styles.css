@@ -8,6 +8,10 @@
   src: url('fonts/MyriadPro-Light.otf');
 }
 
+* {
+  max-width: 100%;
+}
+
 html {
   width: 100%;
   min-height: 100%;
@@ -17,6 +21,7 @@ html {
 }
 
 body {
+  min-width: 320px;
   margin: 0;
   padding: 0;
   font-family: "MyriadPro-Light", "Arial", sans-serif;
@@ -28,48 +33,73 @@ body {
 
 .header-container {
   position: fixed;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 20px;
-  width: 100%;
-  padding: 5px;
+  z-index: 2; 
+  left: 0; right: 0;
+  padding: 10px;
   margin: 0;
   background-color: #168DE2;
   border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
 }
 
-.header-player-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 20px;
-  width: 700px;
+.header-player-container { 
+  position: relative;
   margin: 0 auto;
   max-width: 700px;
 }
 
 .header-player {
   display: flex;
-  width: 140px;
-  margin-right: 12px;
-  margin-top: 15px;
   justify-content: space-between;
   align-items: center;
+  min-height: 50px;
+} 
+
+.header-player-controls {
+  display: flex;
+  width: 140px;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 50px;
 }  
 
-.header-player-indicators {
+.header-player-info {
   display: flex;
-  width: 548px;
-  margin-bottom: 15px;
-  flex: 1;
+  flex: 1 0 auto;
   align-items: center;
   justify-content: space-between;
+  min-height: 50px;
 }
 
+.progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 50px;
+}
+
+/* Top Info */
+
+.artSong-header {
+  margin-left: 200px;
+  margin-bottom: -5px;
+  text-align: left; 
+  font-family: 'MyriadPro-Regular', "Arial", sans-serif;
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 0 0 #fff;
+}
+
+
 /* Controls */
+
+.controls {
+  display: flex;
+  width: 140px;
+  min-height: 50px;
+  margin-right: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .playButton,
 .stepButton {
@@ -119,37 +149,26 @@ body {
 }
 
 .pauseBtn {
-  display:none;;
-}
-
-/* Top Info */
-.artSong-header {
-  display: block;
-  margin-left: 60px;
-  font-family: 'MyriadPro-Regular', "Arial", sans-serif;
-  font-size: 20px;
-  color: #fff;
-  text-shadow: 1px 1px 0 0 #fff;
+  display:none;
 }
 
 /* Progress */
 .duration-player {
   position: relative;
-  height: 7px;
-  margin-right: 10px;
-  margin-left: 10px;
+  height: 9px;
+  margin: 0 10px 0 20px;
   min-width: 300px;  
-  background-color: #ccc;
-  cursor:pointer;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 #progress {
   position: absolute;
-  height: 7px;
   top: 0;
+  bottom: 0;
   left: 0;
   width: 15%;
-  background-color: #fff;
+  background-color: #FF940A;
   z-index: 1;
 }
 
@@ -181,7 +200,7 @@ body {
   margin: 12px;
 }
 
-input[type='range'] {
+.volume-header input[type='range'] {
   width: 70px;
   height: 7px;
   background-color: #fff;
@@ -229,7 +248,7 @@ input[type='range'] {
   align-content: center;
   justify-content: center;
   background-color: #168DE2; 
-  background-image: url('svg/play.svg');
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg width='16' height='16' viewBox='0 0 1792 1792' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1576 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z' fill='%23fff'/%3E%3C/svg%3E");
   position: relative;
   text-align: center;
   border-radius: 50%;
@@ -249,7 +268,7 @@ input[type='range'] {
   align-content: center;
   justify-content: center;
   background-color: #168DE2; 
-  background-image: url('svg/pause.svg');
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg width='16' height='16' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1664 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zm-896 0v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z' fill='%23fff'/%3E%3C/svg%3E");
   position: relative;
   text-align: center;
   border-radius: 50%;
@@ -270,6 +289,99 @@ input[type='range'] {
   align-content: center;
   justify-content: center;
   background-color: #168DE2; 
-  background-image: url('svg/download.svg');
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg width='16' height='16' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1344 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zm-325-569q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z' fill='%23fff'/%3E%3C/svg%3E");
   border-radius: 5%;
 }
+
+@media(max-width: 760px) {
+  .header-container {
+    padding: 10px 60px;
+    max-width: 100%;
+  }
+  
+  .header-player-container {
+    max-width: 100%;
+  }
+
+  .container {
+    padding-top: 180px;
+    padding-left: 60px;
+    padding-right: 60px;
+    min-width: 300px;
+  }
+
+  .artSong-header {
+    margin-left: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .header-player-info {
+    flex-wrap: wrap;
+  }
+  
+  .duration-player { 
+    display: flex;
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 20;
+    margin: 0;
+  }
+  
+  #progress {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    background-color: #FF940A;
+    z-index: 1;
+  }
+  
+  .progress {
+    order: 2;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 20; 
+    justify-content: space-between;
+  }
+
+  .volume-header {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 20;
+    justify-content: space-between;
+  }
+  
+  .muteButton {
+    margin: 12px 2px 12px 40px;
+  }
+
+  .volume-header input[type='range'] {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 20;
+    margin-right: 0;
+    margin-left: 20px;
+  }
+  
+  .duration-timer {
+    padding-left: 20px;
+  }
+}
+
+@media(max-width: 560px) {
+  .header-container {
+    padding: 10px 20px;
+  }
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .duration-player { 
+    min-width: 150px;
+  }
+}
+
