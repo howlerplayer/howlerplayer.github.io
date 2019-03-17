@@ -2,86 +2,51 @@ function CreatePlayer() {
   var playListSongs = [
     {
       artist: 'Сваты',
-      title: 'Всё повторится',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at441711088.mp3',
-      duration: '2:07',
-      howl: null
-    },
-    {
-      artist: 'Сваты',
       title: 'В городе весна',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at748277702.mp3',
+      file: 'http://music42.my.mail.ru/file/979eff98e68d058d29073d5381a71b1a.mp3',
       duration: '1:10',
       howl: null
     },
     {
       artist: 'Сваты',
       title: 'Сны',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at442253544.mp3',
+      file: 'http://music36.my.mail.ru/file/400ea8beb2d417e0fac3c358dc094ea0.mp3',
       duration: '2:29',
       howl: null
     },
     {
       artist: 'Сваты',
       title: 'Радостная грусть',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at200976975.mp3',
+      file: 'http://music27.my.mail.ru/file/fa4a6e66d828e22f1536ce6570756c75.mp3',
       duration: '3:28',
       howl: null
     },
     {
       artist: 'Сваты',
       title: 'Прохлады.net',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460208//at857130056.mp3',
+      file: 'http://music41.my.mail.ru/file/56ea2d19c1e44d23bf9ff101c4f8158d.mp3',
       duration: '1:49',
       howl: null
     },
     {
       artist: 'Сваты',
       title: 'Где же ты был',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at707227761.mp3',
+      file: 'http://music41.my.mail.ru/file/51ed5a581433351ca6866d908ad74558.mp3',
       duration: '2:10',
       howl: null
     },
     {
       artist: 'Сваты',
       title: 'Жара',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at687895098.mp3',
+      file: 'http://music25.my.mail.ru/file/919dde4beda94468644aac4543237948.mp3',
       duration: '1:27',
       howl: null
     },
     {
       artist: 'Сваты',
-      title: 'Клён',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at810812371.mp3',
-      duration: '3:01',
-      howl: null
-    },
-    {
-      artist: 'Сваты',
       title: 'Занавесочки',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at520849082.mp3',
+      file: 'http://music37.my.mail.ru/file/59956d79c3d00e2513f57abe96b8f9e2.mp3',
       duration: '2:40',
-      howl: null
-    },
-    {
-      artist: 'Сваты',
-      title: 'Белый фитилёк',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at889458466.mp3',
-      duration: '4:08',
-      howl: null
-    },
-    {
-      artist: 'Сваты',
-      title: 'Вальс',
-      file: 'http://static.tunnel.ru/media/audio/2016-06/post_comment/792773//at206470031.mp3',
-      duration: '2:22',
-      howl: null
-    },
-    {
-      artist: 'Сваты',
-      title: 'Гитара',
-      file: 'http://static.tunnel.ru/media/audio/2016-09/post_comment/460209//at452194965.mp3',
-      duration: '3:25',
       howl: null
     }
   ]
